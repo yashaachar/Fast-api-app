@@ -1,5 +1,8 @@
 from pydantic import BaseModel
-from typing import Optional, List
+from typing import Optional  # capital O
+
+
+
 
 class CompanyBase(BaseModel):
     name: str
@@ -7,15 +10,19 @@ class CompanyBase(BaseModel):
     phone: str
 
 class CompanyCreate(CompanyBase):
-    pass
+     pass
 
 class CompanyUpdate(BaseModel):
     name: Optional[str] = None
     email: Optional[str] = None
     phone: Optional[str] = None
 
+
 class CompanyResponse(CompanyBase):
-    id: int
+    id:int
+    
+
 
     class Config:
         from_attributes = True
+    

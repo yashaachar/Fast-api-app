@@ -1,39 +1,45 @@
-from fastapi import APIRouter
-from schemas.company import CompanyCreate,CompanyUpdate
+from fastapi import APIRouter, HTTPException, Depends, status
+from schemas.company import CompanyCreate, CompanyUpdate, CompanyResponse
+from sqlalchemy.orm import Session
+from database import get_db
+from model.company import Company
 
+router = APIRouter(prefix="/company", tags=["company"])
 
-router=APIRouter(prefix="/company",tags=["company"])
-companies=[]
+@router.post("/", status_code=status.HTTP_201_CREATED, response_model=CompanyResponse)
+def create_company(company: CompanyCreate, db: Session = Depends(get_db)):
+    new_company = Company(**company.model_dump())
+    db.add(new_company)
+    db.commit()
+    db.refresh(new_company)
+    return new_company
 
+@router.get("/", status_code=status.HTTP_200_OK, response_model=list[CompanyResponse])
+def get_all_company(db: Session = Depends(get_db)):
+    return db.query(Company).all()
 
-@router.post("/")
-def create_company(company: CompanyCreate):
-    companies.append(company)
+@router.get("/{id}", status_code=status.HTTP_200_OK, response_model=CompanyResponse)
+def get_by_id(id: int, db: Session = Depends(get_db)):
+    company = db.query(Company).filter(Company.id == id).first()
+    if not company:
+        raise HTTPException(status_code=404, detail="Company not found")
     return company
 
-@router.get("/")
-def get_all_companies():
-    return companies
+@router.put("/{company_id}", status_code=status.HTTP_200_OK, response_model=CompanyResponse)
+def update_company(company_id: int, company: CompanyUpdate, db: Session = Depends(get_db)):
+    db_company = db.query(Company).filter(Company.id == company_id).first()
+    if not db_company:
+        raise HTTPException(status_code=404, detail="Company not found")
+    for key, value in company.model_dump(exclude_unset=True).items():
+        setattr(db_company, key, value)
+    db.commit()
+    db.refresh(db_company)
+    return db_company
 
-@router.get("/{id}")
-def get_by_id(id:int):
-    return companies[id]
-
-@router.put("/{id}")
-def update_company(id: int, company: CompanyUpdate):
-    companies[id] = company
-    return companies[id]
-
-@router.delete("/{id}")
-def delete_company(id: int):
-    companies.pop(id)
-    return {"message": "deleted"}
-
-##@router.get("/")
-## def read_company ():
-  ## return {"company":"comapny root"}
-
-##@router.get("/{company_id}")
-## def read_company(company_id: int):
-    ## return {"company_id":company_id}
-
+@router.delete("/{company_id}", status_code=status.HTTP_204_NO_CONTENT)
+def delete_company(company_id: int, db: Session = Depends(get_db)):
+    db_company = db.query(Company).filter(Company.id == company_id).first()
+    if not db_company:
+        raise HTTPException(status_code=404, detail="Company not found")
+    db.delete(db_company)
+    db.commit()
