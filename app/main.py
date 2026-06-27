@@ -1,7 +1,10 @@
 from fastapi import FastAPI
 from router import company,job
+from database import Base ,engine
+
 
 app=FastAPI()
+print(engine)
 
 app.include_router(company.router)
 app.include_router(job.router)
