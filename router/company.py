@@ -43,3 +43,4 @@ def delete_company(company_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="Company not found")
     db.delete(db_company)
     db.commit()
+    return ("Company deleted successfully")

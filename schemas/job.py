@@ -5,7 +5,7 @@ from typing import Optional
 class JobBase(BaseModel):
     title: str
     description: str
-    salary: str
+    salary: int
     company_id: int
 
 class JobCreate(JobBase):
@@ -13,7 +13,7 @@ class JobCreate(JobBase):
 
 class JobUpdate(BaseModel):
     title: Optional[str] = None
-    salary: Optional[str] = None
+    salary: Optional[int] = None
     description: Optional[str] = None
     company_id: Optional[int] = None
 
