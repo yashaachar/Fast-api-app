@@ -1,6 +1,6 @@
 # Fast-api-app
 
-## creating fast api application
+## creating fastapi application
 
 # CRUD operations
 -read
@@ -33,3 +33,30 @@
 -REPOSITORY --DATA ACCESS LAYER
 -MIDDLEWARE --REQUEST PROCESSING PIPELINE
 
+# database
+# non-relational database
+-mongodb
+-cassandra
+-redis
+-dynamodb
+# constraints in database
+-primary key --eg: student_id
+-foreign key --eg: department_id in student table
+-unique --eg: email, phonenumber
+-not null --eg: name
+-check --eg: salary> 0
+-default --eg: timestamp:func.now()
+
+# modules
+-sqlalchemy--orm(object relational mapping)
+-fastapi--web framework
+-uvicorn--server for running fastapi
+application-->uvicorn app.main:app --reload
+-psycopg2--postgresql driver
+
+pip install alembic
+alembic init alembic
+alembic>env.py>sqlalchemy.url to postgresql->from imported model
+alembic.ini->sqlalchemy.url to postgresql database url-->postgresql://user:postgres@host:port/database_name
+alembic revision --autogenerate -m"initial migration"
+alembic upgrade head

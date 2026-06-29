@@ -10,6 +10,7 @@ class Company(Base):
     name= Column(String,index=True)
     email= Column(String,unique=True)
     phone= Column(String,unique=True)
+    location= Column(String)
     jobs = relationship("Job", back_populates="company")
 
 

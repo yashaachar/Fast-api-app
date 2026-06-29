@@ -4,7 +4,7 @@ from database import Base, engine
 import model.company
 import model.job
 
-Base.metadata.create_all(bind=engine)
+#Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 
