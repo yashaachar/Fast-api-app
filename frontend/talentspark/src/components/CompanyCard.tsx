@@ -1,9 +1,31 @@
+import { getCompanies } from "../Services/CompanyServices";
+import { useEffect, useState } from "react";
+import type { Company } from "../types/company";
+
+
+
+
 function CompanyCard() {
+    const [companies, setCompanies] = useState<Company[]>([]);
+    async function fetchCompanies() {
+        const companies = await getCompanies();
+        setCompanies(companies);
+    }
+    useEffect(() => {
+        fetchCompanies();
+    }, []);
+
     return (
         <div>
-            <h1>Google</h1>
-            <p>Google is a multinational technology company</p>
-
+            {companies.map((company) => (
+                <div key={company.id}>
+                    <h1>{company.name}</h1>
+                    <p>Email: {company.email}</p>
+                    <p>Phone: {company.phone}</p>
+                    <p>Location: {company.location}</p>
+                    <hr></hr>
+                </div>
+            ))}
         </div>
     )
 }
