@@ -3,23 +3,22 @@ import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
 import CompanyCard from "./components/CompanyCard";
 import JobCard from "./components/JobCard";
-import { useeffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { getCompanies } from "./Services/CompanyServices";
 import type { Company } from "./types/company";
 
-
-
-function App(){
+function App() {
   const [loading, setLoading] = useState(true);
   const [companies, setCompanies] = useState<Company[]>([]);
+  const [error, setError] = useState<string | null>(null);
 
   async function fetchCompanies() {
     setLoading(true);
     try {
       const companies = await getCompanies();
       setCompanies(companies);
-    } catch (error) {
-      setError(error);
+    } catch (err) {
+      setError("Network error");
     } finally {
       setLoading(false);
     }
@@ -27,24 +26,23 @@ function App(){
 
   useEffect(() => {
     fetchCompanies();
-  }, []);  
+  }, []);
 
   if (loading) {
-    return <div></div>
+    return <div>Loading...</div>;
   }
-  if(error){
-    return <div>Error: {error.message}</div>
+  if (error) {
+    return <div>Error: {error}</div>;
   }
   return (
     <>
       <NavBar />
       <Welcome />
-      <br/>
-      <CompanyCard key={company.id} companies={companies} />
+      <br />
+      <CompanyCard companies={companies} />
       <JobCard />
       <Footer />
-
     </>
-  )
+  );
 }
-export default App
+export default App;

@@ -3,10 +3,19 @@ from router import company, job
 from database import Base, engine
 import model.company
 import model.job
+from fastapi.middleware.cors import CORSMiddleware
+
 
 #Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 app.include_router(company.router)
 app.include_router(job.router)
