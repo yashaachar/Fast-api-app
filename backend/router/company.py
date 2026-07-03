@@ -3,11 +3,13 @@ from schemas.company import CompanyCreate, CompanyUpdate, CompanyResponse
 from sqlalchemy.orm import Session
 from database import get_db
 from model.company import Company
+from utils.oauth2 import get_current_user, role_required
+
 
 router = APIRouter(prefix="/company", tags=["company"])
 
 @router.post("/", status_code=status.HTTP_201_CREATED, response_model=CompanyResponse)
-def create_company(company: CompanyCreate, db: Session = Depends(get_db)):
+def create_company(company: CompanyCreate, db: Session = Depends(get_db),current_user=Depends(role_required(["admin"]))):
     new_company = Company(**company.model_dump())
     db.add(new_company)
     db.commit()
@@ -15,18 +17,18 @@ def create_company(company: CompanyCreate, db: Session = Depends(get_db)):
     return new_company
 
 @router.get("/", status_code=status.HTTP_200_OK, response_model=list[CompanyResponse])
-def get_all_company(db: Session = Depends(get_db)):
+def get_all_company(db: Session = Depends(get_db), current_user=Depends(get_current_user)):
     return db.query(Company).all()
 
 @router.get("/{id}", status_code=status.HTTP_200_OK, response_model=CompanyResponse)
-def get_by_id(id: int, db: Session = Depends(get_db)):
+def get_by_id(id: int, db: Session = Depends(get_db), current_user=Depends(get_current_user)):
     company = db.query(Company).filter(Company.id == id).first()
     if not company:
         raise HTTPException(status_code=404, detail="Company not found")
     return company
 
 @router.put("/{company_id}", status_code=status.HTTP_200_OK, response_model=CompanyResponse)
-def update_company(company_id: int, company: CompanyUpdate, db: Session = Depends(get_db)):
+def update_company(company_id: int, company: CompanyUpdate, db: Session = Depends(get_db), current_user=Depends(role_required(["admin"]))):
     db_company = db.query(Company).filter(Company.id == company_id).first()
     if not db_company:
         raise HTTPException(status_code=404, detail="Company not found")
