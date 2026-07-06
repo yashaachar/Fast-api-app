@@ -5,7 +5,7 @@ import model.company
 import model.users
 import model.job
 from fastapi.middleware.cors import CORSMiddleware
-from router import chat,company, job, auth
+from router import chat,company, job, auth,rag
 from services.llm_service import llm_response
 
 #Base.metadata.create_all(bind=engine)
@@ -23,6 +23,7 @@ app.include_router(company.router)
 app.include_router(job.router)
 app.include_router(auth.router)
 app.include_router(chat.router)
+app.include_router(rag.router)
 @app.get("/")
 def read_root():
     return {"Hello": "World"}
