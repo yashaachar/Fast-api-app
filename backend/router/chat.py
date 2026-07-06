@@ -16,9 +16,6 @@ def chat_ask(request: ChatRequest):
 
 
 @router.post("/ask_career", response_model=ChatResponse)
-def ask_career_chatbot(request: ChatRequest):
-    ans = ask_career_chatbot_response(
-        request.message,
-        request.session_id
-    )
+def chat_ask_career(request: ChatRequest):
+    ans = ask_career_chatbot_response(request.message, request.session_id)
     return ChatResponse(response=ans)
