@@ -5,7 +5,7 @@ from qdrant_client import QdrantClient
 from qdrant_client.models import PointStruct, VectorParams, Distance
 from fastembed import TextEmbedding
 from sqlalchemy.orm import Session
-from models.job import Job
+from model.job import Job
 
 load_dotenv()
 
@@ -31,8 +31,7 @@ def ensure_collection():
     if COLLECTION_NAME not in collections:
         qdrant.create_collection(
             collection_name=COLLECTION_NAME,
-            vectors_config=VectorParams(size=VECTOR_SIZE, 
-            distance=Distance.COSINE)
+            vectors_config=VectorParams(size=VECTOR_SIZE, distance=Distance.COSINE)
 )
         
 def embed_text(text: str) -> list[float]:
@@ -65,17 +64,17 @@ def search_jobs(query: str, top_k: int = 5) -> list[dict]:
     )
     return [
         {
-            "job_id": point.payload.get("job_id"),
-            "title": point.payload.get("title"),
-            "description": point.payload.get("description"),
-            "salary": point.payload.get("salary"),
+            "job_id": hit.payload.get("job_id"),
+            "title": hit.payload.get("title"),
+            "description": hit.payload.get("description"),
+            "salary": hit.payload.get("salary"),
             "score": round(hit.score, 4)
         }
 
         for hit in results.points
     ]
 
-def match_jobs_with_profile(skills: str, experience: str, top_k: int = 5) -> list[dict]:
+def match_jobs_for_profile(skills: str, experience: str, top_k: int = 5) -> list[dict]:
     ensure_collection()
     profile_text = f"Skills: {skills}. Experience: {experience}"
     profile_vector = embed_text(profile_text)
