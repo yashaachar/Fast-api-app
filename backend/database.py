@@ -23,7 +23,7 @@ if "supabase.com" in DATABASE_URL:
 
 else:
     engine = create_async_engine(DATABASE_URL, echo=False)
-SessionLocal = async_sessionmaker(autocommit=False, autoflush=False, bind=engine,class_Async_session=AsyncSession)
+SessionLocal = async_sessionmaker(autocommit=False, autoflush=False, bind=engine,class_=AsyncSession)
 Base = declarative_base()
 
 async def get_db():

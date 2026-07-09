@@ -1,6 +1,6 @@
 from fastapi import APIRouter,HTTPException,Depends,status
 from schemas.job import JobCreate,JobUpdate,JobResponse
-from models.job import Job
+from model.job import Job
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
 from sqlalchemy.exc import SQLAlchemyError, IntegrityError

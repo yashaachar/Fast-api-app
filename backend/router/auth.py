@@ -1,9 +1,7 @@
 from fastapi import APIRouter, Depends, HTTPException
 from fastapi.security import OAuth2PasswordRequestForm
-from sqlalchemy.orm import Session
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
-
 
 from database import get_db
 from model.users import User
@@ -13,6 +11,7 @@ from utils.token import create_access_token
 from schemas.tokens import Token
 
 router = APIRouter(prefix="/auth", tags=["Auth"])
+
 
 @router.post("/register", response_model=UserResponse)
 async def register(user: UserCreate, db: AsyncSession = Depends(get_db)):
@@ -32,11 +31,11 @@ async def register(user: UserCreate, db: AsyncSession = Depends(get_db)):
         await db.commit()
         await db.refresh(db_user)
         return db_user
+    except HTTPException:
+        raise
     except Exception as e:
         await db.rollback()
-        raise HTTPException(status_code=500,
-        detail = f"An error occurred while registering the user: {str(e)}")
-    
+        raise HTTPException(status_code=500, detail=f"An error occurred while registering the user: {str(e)}")
 
 
 @router.post("/login", response_model=Token)
@@ -50,8 +49,7 @@ async def login(form_data: OAuth2PasswordRequestForm = Depends(), db: AsyncSessi
             raise HTTPException(status_code=401, detail="Invalid email or password")
         access_token = create_access_token(data={"sub": str(existing_user.id), "role": existing_user.role})
         return {"token_type": "bearer", "access_token": access_token}
+    except HTTPException:
+        raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"An error occurred while logging in: {str(e)}")
-    access_token = create_access_token(data={"sub": str(existing_user.id), "role": existing_user.role})
-    return {"token_type": "bearer", "access_token": access_token}
-    

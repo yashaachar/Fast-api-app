@@ -15,7 +15,7 @@ class CompanyCreate(CompanyBase):
      email: str
      phone: str
      location: str
-class CompanyUpdate(BaseModel):
+class CompanyUpdate(CompanyBase):
      pass
 
 class CompanyResponse(CompanyBase):
