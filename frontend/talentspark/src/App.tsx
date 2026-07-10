@@ -13,8 +13,9 @@ import type { Job } from "./types/job";
 import Chat from "./pages/chat";
 import Resume from "./pages/resume";
 import JobSearch from "./pages/jobsearch";
+import Interview from "./pages/interview";
 
-type View = "dashboard" | "chat" | "resume" | "jobsearch";
+type View = "dashboard" | "chat" | "resume" | "jobsearch" | "interview";
 
 function App() {
   const [token, setToken] = useState<string | null>(localStorage.getItem("token"));
@@ -166,6 +167,7 @@ function App() {
         {!loading && !error && view === "chat" && <Chat token={token} />}
         {!loading && !error && view === "resume" && <Resume token={token} />}
         {!loading && !error && view === "jobsearch" && <JobSearch />}
+        {!loading && !error && view === "interview" && <Interview token={token} />}
 
         <Footer />
       </main>

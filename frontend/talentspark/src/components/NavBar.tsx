@@ -1,4 +1,4 @@
-type View = "dashboard" | "chat" | "resume" | "jobsearch";
+type View = "dashboard" | "chat" | "resume" | "jobsearch" | "interview";
 
 type Props = {
   current: View;
@@ -34,6 +34,12 @@ function NavBar({ current, onNavigate, onLogout }: Props) {
         onClick={() => onNavigate("resume")}
       >
         Resume Analyser
+      </button>
+      <button
+        className={`nav-link ${current === "interview" ? "active" : ""}`}
+        onClick={() => onNavigate("interview")}
+      >
+        AI Interview
       </button>
 
       <div className="sidebar-footer">
