@@ -193,10 +193,10 @@ This project was built collaboratively as a team effort.
 
 | Contributor | Contribution | GitHub |
 |---|---|---|
-| **Yasha Achar** | Backend development & AI integration | [@yashaachar](https://github.com/yashaachar) |
 | **Amitha Pankaj** | Frontend development & deployment | [@AmithaPankaj](https://github.com/AmithaPankaj) |
 | **Ashrifa K** | Database design & API integration | [@Ashrifa-k](https://github.com/Ashrifa-k) |
 | **Neha Shetty** | UI/UX design & testing | [@Nehashetty842](https://github.com/Nehashetty842) |
+| **Yasha Achar** | Backend development & AI integration | [@yashaachar](https://github.com/yashaachar) |
 
 ---
 
