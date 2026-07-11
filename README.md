@@ -53,7 +53,7 @@ TalentSpark connects candidates with companies through semantic job search, AI-d
 ---
 
 ## Project Structure
-'''
+```
 
 Fast-api-app/
 ├── backend/
@@ -82,7 +82,7 @@ Fast-api-app/
         ├── index.html
         └── package.json
 
-'''
+```
 ---
 
 ## Getting Started
