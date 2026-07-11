@@ -53,10 +53,36 @@ TalentSpark connects candidates with companies through semantic job search, AI-d
 ---
 
 ## Project Structure
+'''
 
+Fast-api-app/
+├── backend/
+│   ├── main.py
+│   ├── database.py
+│   ├── model/
+│   ├── schemas/
+│   ├── router/
+│   │   ├── auth.py
+│   │   ├── company.py
+│   │   ├── job.py
+│   │   ├── chat.py
+│   │   ├── rag.py
+│   │   └── interview.py
+│   ├── services/
+│   ├── utils/
+│   └── requirements.txt
+│
+└── frontend/
+    └── talentspark/
+        ├── src/
+        │   ├── App.tsx
+        │   ├── components/
+        │   ├── pages/
+        │   └── Services/
+        ├── index.html
+        └── package.json
 
-<img width="602" height="515" alt="image" src="https://github.com/user-attachments/assets/f8c635d8-2628-49e3-a477-ae8debdca84a" />
-
+'''
 ---
 
 ## Getting Started
