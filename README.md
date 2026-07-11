@@ -187,12 +187,26 @@ Full interactive documentation available at `/docs` (Swagger UI).
 - [ ] Multi-language resume support
 
 ---
+## Contributors
 
-## Author
+This project was built collaboratively as a team effort.
+
+
+**Amitha Pankaj**
+Frontend development,deployment
+[GitHub](https://github.com/AmithaPankaj)
+
+**Ashrifa K**
+Database design & API integration
+[GitHub](https://github.com/Ashrifa-k)
+
+**Neha Shetty**
+UI/UX design & testing
+[GitHub](https://github.com/Nehashetty842)
 
 **Yasha Achar**
-B.E. Artificial Intelligence & Machine Learning, Alva's Institute of Engineering and Technology
-[GitHub](https://github.com/yashaachar) · [LinkedIn](#)
+Backend development & AI integration
+[GitHub](https://github.com/yashaachar)
 
 ---
 
