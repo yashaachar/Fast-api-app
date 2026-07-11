@@ -55,32 +55,7 @@ TalentSpark connects candidates with companies through semantic job search, AI-d
 ## Project Structure
 
 
-Fast-api-app/
-├── backend/
-│   ├── main.py                 # FastAPI app entrypoint
-│   ├── database.py             # Async DB engine & session
-│   ├── model/                  # SQLAlchemy models
-│   ├── schemas/                # Pydantic request/response schemas
-│   ├── router/                 # API route modules
-│   │   ├── auth.py
-│   │   ├── company.py
-│   │   ├── job.py
-│   │   ├── chat.py
-│   │   ├── rag.py
-│   │   └── interview.py
-│   ├── services/                # Business logic (LLM calls, etc.)
-│   ├── utils/                   # Security, JWT, OAuth2 helpers
-│   └── requirements.txt
-│
-└── frontend/
-└── talentspark/
-├── src/
-│   ├── App.tsx
-│   ├── components/       # NavBar, Footer, CompanyCard, JobCard
-│   ├── pages/             # chat, resume, jobsearch, interview
-│   └── Services/          # API service layer (Axios calls)
-├── index.html
-└── package.json
+<img width="602" height="515" alt="image" src="https://github.com/user-attachments/assets/f8c635d8-2628-49e3-a477-ae8debdca84a" />
 
 ---
 
